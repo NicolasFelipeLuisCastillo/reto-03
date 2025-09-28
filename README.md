@@ -51,17 +51,17 @@ class Line(Point):
         slope = self.compute_slope()
         if slope is None:
             return None
-        crossing = self.start.y - (slope * self.start.x)  # y = mx + b
+        crossing = self.start.y - (slope * self.start.x)  # y = mx + b  =>  b = y - mx
         return crossing
 
     def compute_horizontal_crossing(self):
         # Intersection with x-axis (y=0)
         slope = self.compute_slope()
         if slope == 0:
-            return None  # Horizontal line
+            return None  # Horizontal line has no crossing with x-axis
         if slope is None:
-            return None  # Vertical line
-        crossing = -(self.start.y - (slope * self.start.x)) / slope  # x = (y - b) / m
+            return None  # Vertical line has no crossing with x-axis
+        crossing = -(self.start.y - (slope * self.start.x)) / slope  # y = mx + b  =>  x = (y - b) / m
         return crossing
     
     def __str__(self) -> str:
@@ -140,6 +140,7 @@ class Rectangle:
         y_max = self.center.y + self.height/2
         return x_min <= point.x <= x_max and y_min <= point.y <= y_max
 
+
 class Square(Rectangle):
     def __init__(self, method: int, *args):
         if method == 1:
@@ -158,45 +159,70 @@ class Square(Rectangle):
         else:
             raise ValueError("Error: Invalid method")
 
-# ==== Test cases ====
+#Test
 p1 = Point(0, 0)
 p2 = Point(4, 0)
 p3 = Point(4, 3)
 p4 = Point(0, 3)
 
-# 4 lines
+# Create 4 lines that form a rectangle
 l1 = Line(p1, p2)
 l2 = Line(p2, p3)
 l3 = Line(p3, p4)
 l4 = Line(p4, p1)
 
 print("Test Rectangle")
+
+# Method 1: Bottom-left + width + height
 rect1 = Rectangle(1, Point(0, 0), 4, 3)
-print("Method 1 -> Area:", rect1.compute_area(), "Perimeter:", rect1.compute_perimeter(), "Center:", (rect1.center.x, rect1.center.y))
+print("Method 1 -> Area:", rect1.compute_area(), 
+      "Perimeter:", rect1.compute_perimeter(), 
+      "Center:", (rect1.center.x, rect1.center.y))
 
+# Method 2: Center + width + height
 rect2 = Rectangle(2, Point(2, 1.5), 4, 3)
-print("Method 2 -> Area:", rect2.compute_area(), "Perimeter:", rect2.compute_perimeter(), "Center:", (rect2.center.x, rect2.center.y))
+print("Method 2 -> Area:", rect2.compute_area(), 
+      "Perimeter:", rect2.compute_perimeter(), 
+      "Center:", (rect2.center.x, rect2.center.y))
 
+# Method 3: Two opposite points
 rect3 = Rectangle(3, Point(0, 0), Point(4, 3))
-print("Method 3 -> Area:", rect3.compute_area(), "Perimeter:", rect3.compute_perimeter(), "Center:", (rect3.center.x, rect3.center.y))
+print("Method 3 -> Area:", rect3.compute_area(), 
+      "Perimeter:", rect3.compute_perimeter(), 
+      "Center:", (rect3.center.x, rect3.center.y))
 
+# Method 4: Four lines
 rect4 = Rectangle(4, l1, l2, l3, l4)
-print("Method 4 -> Area:", rect4.compute_area(), "Perimeter:", rect4.compute_perimeter(), "Center:", (rect4.center.x, rect4.center.y))
+print("Method 4 -> Area:", rect4.compute_area(), 
+      "Perimeter:", rect4.compute_perimeter(), 
+      "Center:", (rect4.center.x, rect4.center.y))
 
+# Test point interference
 inside = Point(2, 2)
 outside = Point(5, 5)
 print("Point (2,2) inside rect4?", rect4.compute_interference_point(inside))
 print("Point (5,5) inside rect4?", rect4.compute_interference_point(outside))
 
+
 print("\nTest Square")
+
+# Method 1: Bottom-left + side
 sq1 = Square(1, Point(0, 0), 4)
-print("Square Method 1 -> Area:", sq1.compute_area(), "Perimeter:", sq1.compute_perimeter(), "Center:", (sq1.center.x, sq1.center.y))
+print("Square Method 1 -> Area:", sq1.compute_area(), 
+      "Perimeter:", sq1.compute_perimeter(), 
+      "Center:", (sq1.center.x, sq1.center.y))
 
+# Method 2: Center + side
 sq2 = Square(2, Point(2, 2), 4)
-print("Square Method 2 -> Area:", sq2.compute_area(), "Perimeter:", sq2.compute_perimeter(), "Center:", (sq2.center.x, sq2.center.y))
+print("Square Method 2 -> Area:", sq2.compute_area(), 
+      "Perimeter:", sq2.compute_perimeter(), 
+      "Center:", (sq2.center.x, sq2.center.y))
 
+# Method 3: Two opposite points (will adjust to square)
 sq3 = Square(3, Point(0, 0), Point(4, 2))
-print("Square Method 3 -> Area:", sq3.compute_area(), "Perimeter:", sq3.compute_perimeter(), "Center:", (sq3.center.x, sq3.center.y))
+print("Square Method 3 -> Area:", sq3.compute_area(), 
+      "Perimeter:", sq3.compute_perimeter(), 
+      "Center:", (sq3.center.x, sq3.center.y))
 ```
 ## 🔹 Reto 03 (`Reto_03.py`)  
 
@@ -246,4 +272,178 @@ classDiagram
     MenuItem <|-- Appetizer
     MenuItem <|-- MainCourse
     Order "1" --* "*" MenuItem : contiene
+```
+### 📌 Código completo
+```python
+#Base class for menu items
+class MenuItem:
+    def __init__(self, name: str, price: float) -> None:
+        self.name = name
+        self.price = price
+
+    def calculate_total(self) -> float:
+        return self.price
+
+    def __str__(self) -> str:
+        return f"{self.name} : ${self.calculate_total()}"
+
+#Beverage subclass
+class Beverage(MenuItem):
+    def __init__(self, name: str, price: float, size: str) -> None:
+        super().__init__(name, price)
+        self.size = size
+
+    def calculate_total(self) -> float:
+        if self.size.lower() == "big":
+            return self.price * 1.2 #20% extra for big size
+        elif self.size.lower() == "normal":
+            return self.price
+        elif self.size.lower() == "small": 
+            return self.price * 0.8 # 20% discount for small size
+
+#Appetizer subclass
+class Appetizer(MenuItem):
+    def __init__(self, name: str, price: float, is_shared: bool) -> None:
+        super().__init__(name, price)
+        self.is_shared = is_shared
+
+    def calculate_total(self) -> float:
+        if self.is_shared:
+            return self.price * 0.9 # 10% discount for shared appetizers
+        return self.price
+
+#MainCourse subclass
+class MainCourse(MenuItem):
+    def __init__(self, name: str, price: float, side_dish: str) -> None:
+        super().__init__(name, price)
+        self.side_dish = side_dish
+
+    def calculate_total(self) -> float:
+        if self.side_dish.lower() in ["fries", "special salada"]:
+            return self.price + 3.0 # Extra cost for special side dishes
+        return self.price
+
+class Order:
+    def __init__(self) -> None:
+        self.items: list = []
+
+    def add_item(self, item: MenuItem) -> None:
+        self.items.append(item)
+
+    def calculate_total(self) -> float:
+        total = 0
+        for item in self.items:
+            total += item.calculate_total()
+        return total
+
+    def apply_discount(self) -> float:
+        total = self.calculate_total()
+        if len(self.items) >= 3:
+            return total * 0.9 # 10% discount for orders with 3 or more items
+        return total
+
+    def __str__(self) -> str:
+        text = "--- Pedido ---\n"
+        for item in self.items:
+            text += f"{item}\n"
+        text += f"Total: ${self.apply_discount()}\n"
+        return text
+
+# Create menu
+#Base class for menu items
+class MenuItem:
+    def __init__(self, name: str, price: float) -> None:
+        self.name = name
+        self.price = price
+
+    def calculate_total(self) -> float:
+        return self.price
+
+    def __str__(self) -> str:
+        return f"{self.name} : ${self.calculate_total()}"
+
+#Beverage subclass
+class Beverage(MenuItem):
+    def __init__(self, name: str, price: float, size: str) -> None:
+        super().__init__(name, price)
+        self.size = size
+
+    def calculate_total(self) -> float:
+        if self.size.lower() == "big":
+            return self.price * 1.2 #20% extra for big size
+        elif self.size.lower() == "normal":
+            return self.price
+        elif self.size.lower() == "small": 
+            return self.price * 0.8 # 20% discount for small size
+
+#Appetizer subclass
+class Appetizer(MenuItem):
+    def __init__(self, name: str, price: float, is_shared: bool) -> None:
+        super().__init__(name, price)
+        self.is_shared = is_shared
+
+    def calculate_total(self) -> float:
+        if self.is_shared:
+            return self.price * 0.9 # 10% discount for shared appetizers
+        return self.price
+
+#MainCourse subclass
+class MainCourse(MenuItem):
+    def __init__(self, name: str, price: float, side_dish: str) -> None:
+        super().__init__(name, price)
+        self.side_dish = side_dish
+
+    def calculate_total(self) -> float:
+        if self.side_dish.lower() in ["fries", "special salada"]:
+            return self.price + 3.0 # Extra cost for special side dishes
+        return self.price
+
+class Order:
+    def __init__(self) -> None:
+        self.items: list = []
+
+    def add_item(self, item: MenuItem) -> None:
+        self.items.append(item)
+
+    def calculate_total(self) -> float:
+        total = 0
+        for item in self.items:
+            total += item.calculate_total()
+        return total
+
+    def apply_discount(self) -> float:
+        total = self.calculate_total()
+        if len(self.items) >= 3:
+            return total * 0.9 # 10% discount for orders with 3 or more items
+        return total
+
+    def __str__(self) -> str:
+        text = "--- Pedido ---\n"
+        for item in self.items:
+            text += f"{item}\n"
+        text += f"Total: ${self.apply_discount()}\n"
+        return text
+
+# Create menu
+menu = [
+    Beverage("Coca-Cola", 5.0, "big"),
+    Beverage("Orange juice", 4.0, "normal"),
+    Beverage("Mineral water", 2.0, "small"),
+    Appetizer("Nachos with cheese", 7.0, True),
+    Appetizer("Onion rings", 6.0, False),
+    Appetizer("Garlic bread", 4.5, True),
+    MainCourse("Hamburger", 12.0, "fries"),
+    MainCourse("Margherita pizza", 14.0, "special salad"),
+    MainCourse("Bolognese pasta", 11.0, "salad"),
+    MainCourse("Grilled chicken", 10.0, "rice")
+    ]
+
+# Create an order and add items
+order = Order()
+order.add_item(menu[0])   # Big Coca-Cola - 20% extra
+order.add_item(menu[3])   # Shared Nachos with cheese - 10% discount
+order.add_item(menu[6])   # Hamburger with fries - $3 extra
+order.add_item(menu[8])   # Pasta with salad - no extra cost
+
+print(order)
 ```
