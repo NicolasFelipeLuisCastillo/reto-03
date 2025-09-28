@@ -21,7 +21,26 @@ En este ejercicio trabajamos con las clases:
   4. **Cuatro líneas** (composición → un rectángulo se compone de 4 lados).  
 - **Square**: Hereda de `Rectangle` y asegura que el ancho y el alto sean iguales.  
 
-👉 El código completo se encuentra en [`ejercicio_clase.py`](./ejercicio_clase.py).  
+## 🔹 Ejercicio de Clase (`ejercicio_clase.py`)
+
+Aquí está el código completo del ejercicio:
+
+```python
+class Point:
+    def __init__(self, x: float, y: float) -> None:
+        self.x = x
+        self.y = y
+
+class Line(Point):
+    def __init__(self, start: Point, end: Point ) -> None:
+        super().__init__(start.x, start.y)
+        self.start = start
+        self.end = end
+
+    def compute_length(self) -> float:
+        length = ((self.end.x - self.start.x) ** 2 + (self.end.y - self.start.y) ** 2) ** 0.5
+        return length
+
 
 ---
 
