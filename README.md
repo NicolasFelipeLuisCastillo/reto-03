@@ -6,20 +6,12 @@ Este repositorio contiene ejercicios prácticos de POO en Python, documentados y
 
 ## Ejercicio de Clase (`ejercicio_clase.py`)  
 
-En este ejercicio trabajamos con las clases:  
-
-- **Point**: Representa un punto en el plano.  
-- **Line**: Representa una línea definida por dos puntos, con métodos para calcular:  
-  - Longitud (`compute_length`)  
-  - Pendiente (`compute_slope`)  
-  - Cruce con eje vertical (`compute_vertical_crossing`)  
-  - Cruce con eje horizontal (`compute_horizontal_crossing`)  
-- **Rectangle**: Clase con **4 métodos de inicialización**:  
-  1. Punto inferior izquierdo + ancho + alto.  
-  2. Centro + ancho + alto.  
-  3. Dos esquinas opuestas.  
-  4. **Cuatro líneas** (composición: un rectángulo se compone de 4 lados).  
-- **Square**: Hereda de `Rectangle` y asegura que el ancho y el alto sean iguales.  
+`length`, `slope`, `start`, `end`: Atributos de instancia, dos de los cuales son puntos (por lo que una línea se compone al menos de dos puntos).
+`compute_length()`: debe devolver la longitud de la línea.
+`compute_slope()`: debe devolver la pendiente de la línea desde la horizontal en grados.
+`compute_horizontal_cross()`: debe devolver si existe la intersección con el eje x.
+`compute_vertical_cross()`: debe devolver si existe la intersección con el eje y.
+`Redefinir la clase Rectangle`, añadiendo un nuevo método de inicialización usando 4 líneas (composición óptima: un rectángulo se compone de 4 líneas).
 
 ### Código completo
 
