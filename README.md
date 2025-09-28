@@ -1,10 +1,10 @@
-# Taller de Programación Orientada a Objetos en Python  
+# Reto-03
 
 Este repositorio contiene ejercicios prácticos de POO en Python, documentados y explicados.  
 
 ---
 
-## 🔹 Ejercicio de Clase (`ejercicio_clase.py`)  
+## Ejercicio de Clase (`ejercicio_clase.py`)  
 
 En este ejercicio trabajamos con las clases:  
 
@@ -21,7 +21,7 @@ En este ejercicio trabajamos con las clases:
   4. **Cuatro líneas** (composición: un rectángulo se compone de 4 lados).  
 - **Square**: Hereda de `Rectangle` y asegura que el ancho y el alto sean iguales.  
 
-### 📌 Código completo
+### Código completo
 
 ```python
 class Point:
@@ -224,15 +224,14 @@ print("Square Method 3 -> Area:", sq3.compute_area(),
       "Perimeter:", sq3.compute_perimeter(), 
       "Center:", (sq3.center.x, sq3.center.y))
 ```
-## 🔹 Reto 03 (`Reto_03.py`)  
+## Reto 03 (`Reto_03.py`)  
 
 ### 📖 Enunciado
 
-Diseñar un programa para calcular la cuenta de un pedido en un restaurante:  
-
-- `MenuItem`: clase base con `name`, `price` y `calculate_total()`.  
-- Subclases: `Beverage`, `Appetizer`, `MainCourse`.  
-- `Order`: permite agregar ítems, calcular la cuenta total y aplicar descuentos.  
+Escenario de restaurante: Se desea diseñar un programa para calcular la cuenta del pedido de un cliente.
+Defina la clase base `MenuItem`: Esta clase debe tener atributos como nombre, precio y un método para calcular el precio total.
+Cree subclases para diferentes tipos de elementos del menú: Herede de `MenuItem` y defina propiedades específicas para cada tipo (por ejemplo, `Bebida`, `Aperitivo`, `Plato principal`).
+Defina la clase `Orden`: Esta clase debe tener una lista de objetos `MenuItem` y métodos para añadir elementos, calcular el importe total de la cuenta y, potencialmente, aplicar descuentos específicos según la composición del pedido.
 
 ---
 
@@ -273,7 +272,7 @@ classDiagram
     MenuItem <|-- MainCourse
     Order "1" --* "*" MenuItem : contiene
 ```
-### 📌 Código completo
+### Código completo
 ```python
 #Base class for menu items
 class MenuItem:
