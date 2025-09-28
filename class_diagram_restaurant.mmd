@@ -1,0 +1,33 @@
+---
+config:
+  theme: dark
+---
+classDiagram
+    direction RL
+    class MenuItem{
+        +name: String
+        +price: float
+        +calculate_total(): float
+    }
+    class Beverage{
+        +size: String
+        +calculate_total(): float
+    }
+    class Appetizer{
+        +is_shared: bool
+        +calculate_total(): float
+    }
+    class MainCourse{
+        +side_dish: String
+        +calculate_total(): float
+    }
+    class Order{
+        +items: List~MenuItem~
+        +add_item(item: MenuItem)
+        +calculate_total(): float
+        +apply_discount(): float
+    }
+    MenuItem <|-- Beverage
+    MenuItem <|-- Appetizer
+    MenuItem <|-- MainCourse
+    Order "1" --* "*" MenuItem : contiene
