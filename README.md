@@ -227,7 +227,7 @@ Defina la clase `Orden`: Esta clase debe tener una lista de objetos `MenuItem` y
 
 ---
 
-### 📊 Diagrama de clases  
+### Diagrama de clases  
 
 ```mermaid
 ---
