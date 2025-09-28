@@ -1,14 +1,59 @@
-# Ejercicio 4
+# Taller de Programación Orientada a Objetos en Python  
 
-Se añadió el **Method 4** a la clase `Rectangle`, permitiendo inicializar un rectángulo a partir de **4 líneas** (`Line`).  
-Este es un ejemplo de **composición** en POO: un rectángulo se compone de 4 lados.
+Este repositorio contiene ejercicios prácticos de POO en Python, documentados y explicados.  
 
-## 📌 Funcionalidades
-- Calcular área y perímetro.
-- Verificar si un punto está dentro del rectángulo.
-- Inicialización mediante 4 líneas (`Line`).
+---
 
-## 🚀 Ejecución
+## 🔹 Ejercicio de Clase (`ejercicio_clase.py`)  
 
-```bash
-python ejercicio_clase.py
+En este ejercicio trabajamos con las clases:  
+
+- **Point**: Representa un punto en el plano.  
+- **Line**: Representa una línea definida por dos puntos, con métodos para calcular:  
+  - Longitud (`compute_length`)  
+  - Pendiente (`compute_slope`)  
+  - Cruce vertical (`compute_vertical_crossing`)  
+  - Cruce horizontal (`compute_horizontal_crossing`)  
+- **Rectangle**: Ahora tiene **4 métodos de inicialización**:  
+  1. Punto inferior izquierdo + ancho + alto.  
+  2. Centro + ancho + alto.  
+  3. Dos esquinas opuestas.  
+  4. **Cuatro líneas** (composición → un rectángulo se compone de 4 lados).  
+- **Square**: Hereda de `Rectangle` y asegura que el ancho y el alto sean iguales.  
+
+👉 El código completo se encuentra en [`ejercicio_clase.py`](./ejercicio_clase.py).  
+
+---
+
+## 🔹 Reto 03 (`Reto_03.py`)  
+
+### 📖 Enunciado
+
+**Restaurant scenario:**  
+You want to design a program to calculate the bill for a customer's order in a restaurant.  
+
+- `MenuItem`: Clase base con atributos `name`, `price` y un método para calcular el precio total.  
+- Subclases de `MenuItem`: `Beverage`, `Appetizer`, `MainCourse`.  
+- `Order`: Clase que mantiene una lista de `MenuItem` y puede:  
+  - Agregar ítems.  
+  - Calcular la cuenta total.  
+  - Aplicar descuentos especiales.  
+
+### 📊 Diagrama de clases  
+
+El diagrama de clases se encuentra en el archivo [`class_diagram_restaurant.mmd`](./class_diagram_restaurant.mmd).  
+Si tu editor soporta Mermaid, lo puedes visualizar directamente.  
+
+### 📌 Código  
+
+El código completo está en [`Reto_03.py`](./Reto_03.py).  
+
+Ejemplo de uso incluido en el archivo:  
+
+```python
+order = Order()
+order.add_item(Beverage("Cola", 2.0, "large"))
+order.add_item(Appetizer("Nachos", 5.0, 2))
+order.add_item(MainCourse("Burger", 10.0, "regular"))
+
+print("Total bill:", order.calculate_total())
