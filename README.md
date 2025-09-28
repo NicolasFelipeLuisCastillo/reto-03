@@ -11,4 +11,4 @@ Este es un ejemplo de **composición** en POO: un rectángulo se compone de 4 la
 ## 🚀 Ejecución
 
 ```bash
-python main.py
+python ejercicio_clase.py
