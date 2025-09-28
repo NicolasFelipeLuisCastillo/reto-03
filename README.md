@@ -11,7 +11,7 @@ Este repositorio contiene ejercicios prácticos de POO en Python, documentados y
 `compute_slope()`: debe devolver la pendiente de la línea desde la horizontal en grados.
 `compute_horizontal_cross()`: debe devolver si existe la intersección con el eje x.
 `compute_vertical_cross()`: debe devolver si existe la intersección con el eje y.
-`Redefinir la clase Rectangle`, añadiendo un nuevo método de inicialización usando 4 líneas (composición óptima: un rectángulo se compone de 4 líneas).
+Redefinir la clase Rectangle, añadiendo un nuevo método de inicialización usando 4 líneas (composición óptima: un rectángulo se compone de 4 líneas).
 
 ### Código completo
 
@@ -218,7 +218,7 @@ print("Square Method 3 -> Area:", sq3.compute_area(),
 ```
 ## Reto 03 (`Reto_03.py`)  
 
-### 📖 Enunciado
+### Enunciado
 
 Escenario de restaurante: Se desea diseñar un programa para calcular la cuenta del pedido de un cliente.
 Defina la clase base `MenuItem`: Esta clase debe tener atributos como nombre, precio y un método para calcular el precio total.
